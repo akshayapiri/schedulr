@@ -6,6 +6,6 @@ export default defineConfig({
     jsxRuntime: 'automatic'
   })],
   build: {
-    manifest: true
+    manifest: 'manifest.json'
   }
 })

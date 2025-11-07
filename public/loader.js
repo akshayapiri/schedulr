@@ -1,5 +1,5 @@
 const DEV_ENTRY = '/src/main.jsx'
-const MANIFEST_PATH = '/.vite/manifest.json'
+const MANIFEST_PATH = '/manifest.json'
 
 async function loadDev() {
   await import(DEV_ENTRY)
@@ -10,6 +10,7 @@ async function loadProd() {
     if (!res.ok) throw new Error('Manifest not found')
     return res.json()
   })
+
   const entry = manifest['src/main.jsx']
   if (!entry || !entry.file) {
     throw new Error('Entry not found in manifest')
@@ -28,7 +29,7 @@ async function loadProd() {
   await import(/* @vite-ignore */ entryUrl)
 }
 
-(async () => {
+;(async () => {
   try {
     await loadDev()
   } catch (error) {
