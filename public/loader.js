@@ -1,32 +1,21 @@
 const DEV_ENTRY = '/src/main.jsx'
-const MANIFEST_PATH = '/manifest.json'
+const PROD_JS = '/assets/app.js'
+const PROD_CSS = '/assets/app.css'
 
 async function loadDev() {
   await import(DEV_ENTRY)
 }
 
 async function loadProd() {
-  const manifest = await fetch(MANIFEST_PATH).then((res) => {
-    if (!res.ok) throw new Error('Manifest not found')
-    return res.json()
-  })
-
-  const entry = manifest['src/main.jsx']
-  if (!entry || !entry.file) {
-    throw new Error('Entry not found in manifest')
+  const cssLink = document.createElement('link')
+  cssLink.rel = 'stylesheet'
+  cssLink.href = PROD_CSS
+  cssLink.onerror = () => {
+    console.warn('CSS bundle not found, continuing without styles')
   }
+  document.head.appendChild(cssLink)
 
-  if (entry.css) {
-    entry.css.forEach((cssFile) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = `/${cssFile}`
-      document.head.appendChild(link)
-    })
-  }
-
-  const entryUrl = entry.file.startsWith('/') ? entry.file : `/${entry.file}`
-  await import(/* @vite-ignore */ entryUrl)
+  await import(/* @vite-ignore */ PROD_JS)
 }
 
 ;(async () => {
