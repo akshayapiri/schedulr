@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Racing Sans One', cursive;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  button, .font-racing {
+    font-family: 'Racing Sans One', cursive;
+  }
+}
