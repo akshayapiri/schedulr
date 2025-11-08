@@ -134,10 +134,6 @@ function ClassBlock({
               <span>{classItem.teacher}</span>
             </div>
           )}
-          <div className="mobile-class-info">
-            <span className="material-symbols-rounded mobile-class-icon" aria-hidden="true">schedule</span>
-            <span>{classItem.startTime} - {classItem.endTime}</span>
-          </div>
           {classItem.description && (
             <div className="mobile-class-info">
               <span className="material-symbols-rounded mobile-class-icon" aria-hidden="true">notes</span>
@@ -235,10 +231,6 @@ function ClassBlock({
         </div>
       )}
 
-      <div className="class-block-time">
-        <span className="material-symbols-rounded class-block-icon" aria-hidden="true">schedule</span>
-        <span>{classItem.startTime} - {classItem.endTime}</span>
-      </div>
     </motion.div>
   )
 }

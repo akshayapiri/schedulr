@@ -170,6 +170,15 @@ export default function TimetableGrid({ classes, overlaps, onSelectClass, onDupl
   return (
     <>
       <div className="timetable-wrapper desktop-view">
+        {classes.length === 0 && (
+          <div className="desktop-empty-state">
+            <div className="empty-illustration">
+              <span className="material-symbols-rounded" aria-hidden="true">calendar_add_on</span>
+            </div>
+            <p className="empty-state-text">No classes yet</p>
+            <p className="empty-state-hint">Tap "Add Class" to start building your timetable!</p>
+          </div>
+        )}
         <div ref={gridRef} className="timetable-grid">
           <div className="grid-header time-header" />
           {DAYS.map(day => (

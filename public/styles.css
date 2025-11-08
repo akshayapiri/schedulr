@@ -426,8 +426,8 @@ body.dark .class-block-title {
     border: 1px solid rgba(255, 255, 255, 0.3);
     font-size: 1rem;
     cursor: pointer;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -444,23 +444,29 @@ body.dark .class-block-delete {
     border: 1px solid rgba(193, 162, 127, 0.4);
 }
 
+body.dark .class-block-duplicate .material-symbols-rounded,
+body.dark .class-block-delete .material-symbols-rounded {
+    color: rgba(255, 255, 255, 0.9);
+}
+
 .class-block-duplicate {
-    color: #2563EB;
+    color: rgba(255, 255, 255, 0.92);
 }
 
 .class-block-duplicate:hover {
-    background: rgba(37, 99, 235, 0.18);
+    background: rgba(255, 255, 255, 0.22);
+    color: #FFFFFF;
     opacity: 1;
     transform: translateY(-2px) scale(1.05);
 }
 
 .class-block-delete {
-    color: #DC2626;
+    color: rgba(255, 255, 255, 0.92);
 }
 
 .class-block-delete:hover {
-    background: rgba(220, 38, 38, 0.16);
-    color: #991B1B;
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
     opacity: 1;
     transform: translateY(-2px) scale(1.05);
     }
@@ -579,17 +585,27 @@ body.dark .mobile-empty-state {
 }
 
 .empty-state-text {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-    opacity: 0.7;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0;
+    color: rgba(31, 41, 55, 0.88);
+    text-align: center;
+    letter-spacing: 0.02em;
 }
 
 .empty-state-hint {
-    font-size: 0.875rem;
-    color: var(--text-primary);
-    opacity: 0.5;
+    font-size: 0.95rem;
+    color: rgba(75, 85, 99, 0.8);
+    margin: 0;
+    text-align: center;
+}
+
+body.dark .empty-state-text {
+    color: rgba(253, 233, 207, 0.9);
+}
+
+body.dark .empty-state-hint {
+    color: rgba(253, 233, 207, 0.65);
 }
 
 .mobile-class-card {
@@ -720,9 +736,14 @@ body.dark .mobile-class-description {
 
 .mobile-class-actions .class-block-duplicate,
 .mobile-class-actions .class-block-delete {
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
+    width: 30px;
+    height: 30px;
+    font-size: 0.95rem;
+}
+
+.mobile-class-actions .class-block-duplicate .material-symbols-rounded,
+.mobile-class-actions .class-block-delete .material-symbols-rounded {
+    font-size: 18px;
 }
 
 .mobile-class-warning {
@@ -991,3 +1012,42 @@ body.dark .form-group textarea {
 }
 
 /* Empty state - removed duplicate */
+
+.desktop-empty-state {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    pointer-events: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.desktop-empty-state .empty-illustration {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 24px 60px -28px rgba(36, 45, 76, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+body.dark .desktop-empty-state .empty-illustration {
+    background: rgba(36, 45, 76, 0.7);
+    box-shadow: 0 24px 60px -28px rgba(193, 162, 127, 0.4);
+}
+
+.desktop-empty-state .empty-illustration .material-symbols-rounded {
+    font-size: 56px;
+    color: rgba(36, 45, 76, 0.85);
+}
+
+body.dark .desktop-empty-state .empty-illustration .material-symbols-rounded {
+    color: rgba(253, 233, 207, 0.9);
+}
