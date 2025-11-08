@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
+  base: './', // 👈 this makes all asset paths relative (important for render)
   plugins: [react({
     jsxRuntime: 'automatic'
   })],
