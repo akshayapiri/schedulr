@@ -28,6 +28,13 @@ const applyAlpha = (hex, alpha) => {
   return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`
 }
 
+const springTransition = {
+  type: 'spring',
+  stiffness: 260,
+  damping: 22,
+  mass: 0.7
+}
+
 /**
  * ClassBlock Component
  * Displays a class as a colored block on the timetable
@@ -66,6 +73,8 @@ function ClassBlock({
     ? `0 18px 36px -18px ${applyAlpha(textColor === '#FDE9CF' ? '#000000' : '#242D4C', textColor === '#FDE9CF' ? 0.55 : 0.2)}`
     : undefined
 
+  const hoverAnimation = isDragging ? {} : { translateY: -4, scale: 1.02 }
+
   if (isMobile) {
     const mobileStyle = {
       background: backgroundColor || undefined,
@@ -76,9 +85,13 @@ function ClassBlock({
 
     return (
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 12 }}
+        layout
+        initial={{ opacity: 0, y: 12, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 12, scale: 0.95 }}
+        transition={springTransition}
+        whileHover={{ translateY: -6, scale: 1.01 }}
+        whileTap={{ scale: 0.97 }}
         className={`mobile-class-card ${isOverlapping ? 'overlapping' : ''}`}
         style={mobileStyle}
         onClick={() => onSelect(classItem)}
@@ -96,8 +109,9 @@ function ClassBlock({
                 onDuplicate(classItem)
               }}
               title="Duplicate"
+              type="button"
             >
-              📋
+              <span className="material-symbols-rounded" aria-hidden="true">content_copy</span>
             </button>
             <button
               className="class-block-delete"
@@ -106,8 +120,9 @@ function ClassBlock({
                 onDelete(classItem.id)
               }}
               title="Delete"
+              type="button"
             >
-              ×
+              <span className="material-symbols-rounded" aria-hidden="true">delete</span>
             </button>
           </div>
         </div>
@@ -115,24 +130,27 @@ function ClassBlock({
         <div className="mobile-class-details">
           {classItem.teacher && (
             <div className="mobile-class-info">
-              <span className="mobile-class-icon">👤</span>
+              <span className="material-symbols-rounded mobile-class-icon" aria-hidden="true">person</span>
               <span>{classItem.teacher}</span>
             </div>
           )}
           <div className="mobile-class-info">
-            <span className="mobile-class-icon">🕐</span>
+            <span className="material-symbols-rounded mobile-class-icon" aria-hidden="true">schedule</span>
             <span>{classItem.startTime} - {classItem.endTime}</span>
           </div>
           {classItem.description && (
             <div className="mobile-class-info">
-              <span className="mobile-class-icon">📝</span>
+              <span className="material-symbols-rounded mobile-class-icon" aria-hidden="true">notes</span>
               <span>{classItem.description}</span>
             </div>
           )}
         </div>
 
         {isOverlapping && (
-          <div className="mobile-class-warning">⚠️ Time conflict detected!</div>
+          <div className="mobile-class-warning">
+            <span className="material-symbols-rounded" aria-hidden="true">warning</span>
+            <span>Time conflict detected!</span>
+          </div>
         )}
       </motion.div>
     )
@@ -156,9 +174,13 @@ function ClassBlock({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -6 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -6 }}
+      layout
+      initial={{ opacity: 0, y: -6, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -6, scale: 0.97 }}
+      transition={springTransition}
+      whileHover={hoverAnimation}
+      whileTap={{ scale: 0.98 }}
       className={`class-block ${isOverlapping ? 'overlapping' : ''} ${isDragging ? 'dragging' : ''}`}
       style={style}
       onClick={() => onSelect(classItem)}
@@ -181,8 +203,9 @@ function ClassBlock({
               onDuplicate(classItem)
             }}
             title="Duplicate"
+            type="button"
           >
-            📋
+            <span className="material-symbols-rounded" aria-hidden="true">content_copy</span>
           </button>
           <button
             className="class-block-delete"
@@ -191,22 +214,30 @@ function ClassBlock({
               onDelete(classItem.id)
             }}
             title="Delete"
+            type="button"
           >
-            ×
+            <span className="material-symbols-rounded" aria-hidden="true">delete</span>
           </button>
         </div>
       </div>
 
       {classItem.teacher && (
-        <div className="class-block-teacher">{classItem.teacher}</div>
+        <div className="class-block-teacher">
+          <span className="material-symbols-rounded class-block-icon" aria-hidden="true">person</span>
+          <span>{classItem.teacher}</span>
+        </div>
       )}
 
       {classItem.description && (
-        <div className="class-block-description">{classItem.description}</div>
+        <div className="class-block-description">
+          <span className="material-symbols-rounded class-block-icon" aria-hidden="true">notes</span>
+          <span>{classItem.description}</span>
+        </div>
       )}
 
       <div className="class-block-time">
-        {classItem.startTime} - {classItem.endTime}
+        <span className="material-symbols-rounded class-block-icon" aria-hidden="true">schedule</span>
+        <span>{classItem.startTime} - {classItem.endTime}</span>
       </div>
     </motion.div>
   )

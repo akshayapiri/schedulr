@@ -25,30 +25,35 @@ export default function Toast({ message, type = 'success', onClose }) {
 
   if (!message) return null
 
+  const isSuccess = type === 'success'
+  const iconName = isSuccess ? 'check_circle' : 'error'
+  const baseClasses = isSuccess
+    ? theme === 'dark'
+      ? 'bg-emerald-600 text-emerald-50'
+      : 'bg-emerald-500 text-white'
+    : theme === 'dark'
+    ? 'bg-rose-600 text-rose-50'
+    : 'bg-rose-500 text-white'
+
   return (
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0, y: -50, x: '-50%' }}
         animate={{ opacity: 1, y: 0, x: '-50%' }}
         exit={{ opacity: 0, y: -50, x: '-50%' }}
-        className={`fixed top-20 left-1/2 z-[100] px-6 py-4 rounded-2xl shadow-2xl ${
-          type === 'success'
-            ? theme === 'dark'
-              ? 'bg-green-600 text-white'
-              : 'bg-green-500 text-white'
-            : theme === 'dark'
-            ? 'bg-red-600 text-white'
-            : 'bg-red-500 text-white'
-        }`}
+        transition={{ type: 'spring', stiffness: 240, damping: 22 }}
+        className={`fixed top-20 left-1/2 z-[100] shadow-2xl rounded-2xl px-5 py-3 ${baseClasses}`}
       >
         <div className="flex items-center gap-3">
-          <span className="text-lg">{type === 'success' ? '✓' : '✕'}</span>
-          <p className="font-racing font-semibold">{message}</p>
+          <span className="material-symbols-rounded text-2xl" aria-hidden="true">{iconName}</span>
+          <p className="font-racing font-semibold tracking-wide">{message}</p>
           <button
             onClick={onClose}
-            className="ml-2 text-white/80 hover:text-white"
+            className="ml-2 bg-white/10 hover:bg-white/20 rounded-full p-1 transition"
+            aria-label="Dismiss notification"
+            type="button"
           >
-            ×
+            <span className="material-symbols-rounded" aria-hidden="true">close</span>
           </button>
         </div>
       </motion.div>
